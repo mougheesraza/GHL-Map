@@ -1,0 +1,249 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Contact Map Dashboard</title>
+
+    <!-- Leaflet -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+
+    <!-- Dashboard CSS -->
+    <link
+        rel="stylesheet"
+        href="assets/style.css"
+    />
+
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- Header -->
+
+    <header class="header">
+
+        <div>
+
+            <h1>Contact Map</h1>
+
+            <p>
+                Contacts by geographic location
+            </p>
+
+        </div>
+
+        <button
+            id="refreshButton"
+            class="refresh-button"
+        >
+            ↻ Refresh Contacts
+        </button>
+
+    </header>
+
+
+    <!-- Location -->
+
+    <form id="locationForm" class="location-box" method="get">
+
+        <label for="locationInput">Sub-account Location ID</label>
+        <div class="location-controls">
+        <div class="location-url">
+        <span class="url-prefix">https://app.gohighlevel.com/v2/location/</span>
+        <input id="locationInput" name="location_id" required pattern="[a-zA-Z0-9_-]+" aria-describedby="locationHelp"
+               value=""
+               placeholder="FMbFweRMfnslbEvB9XP2" autocomplete="off" spellcheck="false">
+        </div>
+        <button id="saveLocationButton" class="refresh-button" type="submit">Save &amp; Load Contacts</button>
+        </div>
+        <p id="locationHelp">Enter the sub-account Location ID and save to load its contacts, map and states. Your selection is remembered in this browser.</p>
+
+        <strong>Location ID:</strong>
+
+        <span id="locationId">
+            
+        </span>
+
+    </form>
+
+
+    <!-- Statistics -->
+
+    <section class="stats">
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                Total Contacts
+            </span>
+
+            <strong id="totalContacts">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                With Address
+            </span>
+
+            <strong id="withAddress">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                Without Address
+            </span>
+
+            <strong id="withoutAddress">
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <span class="stat-label">
+                Address Coverage
+            </span>
+
+            <strong id="coverage">
+                0%
+            </strong>
+
+        </div>
+
+    </section>
+
+
+    <!-- Peak Zone -->
+
+    <section class="peak-zone">
+
+        <div>
+
+            <span class="peak-label">
+                🔥 Peak Zone
+            </span>
+
+            <h2 id="peakZone">
+                Waiting for data...
+            </h2>
+
+        </div>
+
+        <strong id="peakCount">
+            0 contacts
+        </strong>
+
+    </section>
+
+
+    <!-- Main Content -->
+
+    <section class="content">
+
+        <div class="map-container">
+
+            <div class="map-toolbar">
+                <strong>Contact locations</strong>
+                <div class="map-actions">
+                    <button type="button" id="fitMapButton" class="refresh-button">Show all pins</button>
+                    <button type="button" id="fullscreenButton" class="refresh-button">Full screen</button>
+                </div>
+            </div>
+            <div class="map-search">
+                <label for="mapSearch">Search mapped contacts</label>
+                <input type="search" id="mapSearch" placeholder="Name, email, address or state" autocomplete="off">
+                <span id="mapSearchCount" role="status" aria-live="polite"></span>
+            </div>
+
+            <div id="map"></div>
+
+            <div
+                id="loading"
+                class="loading"
+            >
+                Loading contacts...
+            </div>
+
+        </div>
+
+
+        <!-- Zone List -->
+
+        <aside class="zones">
+
+            <h2>States / Provinces</h2>
+            <div id="stateList"><p class="empty">No contacts loaded.</p></div>
+
+            <h2>
+                Top 5 Zones
+            </h2>
+
+            <div id="zoneList">
+
+                <p class="empty">
+                    No zones yet.
+                </p>
+
+            </div>
+
+        </aside>
+
+    </section>
+
+
+<!-- Status -->
+
+    <div class="status">
+
+        <span id="statusText" role="status" aria-live="polite">
+            Ready
+        </span>
+
+        <span id="lastUpdated">
+        </span>
+
+    </div>
+
+</div>
+
+
+<!-- Leaflet JS -->
+
+<script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
+</script>
+
+
+<!-- Application JS -->
+
+<script src="assets/app.js"></script>
+
+</body>
+
+</html>
